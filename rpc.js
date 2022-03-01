@@ -3,11 +3,12 @@
   let i;
   let j=1;
   let winnercount=0;
-  let computercount=0
+  let computercount=0;
   let userchoice; 
   let lowercaseuserchoice;
   let computerSelection;
   let playerSelection;
+  let count=0;
  
   
 function computerplay(){       
@@ -16,21 +17,14 @@ function computerplay(){
         }
         
 
-function userinputchecker(){      
+//function userinputchecker(){      
        
-          userchoice = prompt ('please enter your selection from rock, paper and scicssor');
-          lowercaseuserchoice =userchoice.toLowerCase();
-            //alert(lowercaseuserchoice);
-        while ((lowercaseuserchoice!=='rock')&& (lowercaseuserchoice!=='scissor')&&(lowercaseuserchoice!=='paper')) {
-               console.log('you entered wrong selection. please try again')
-                userchoice = prompt('please enter your selection from rock, paper and scicssor');
-                 }
-                   
-                 return lowercaseuserchoice;                 
+                
       
-      } 
+   //   } 
   
 function playRound(playerSelection, computerSelection){
+  
     if (playerSelection===computerSelection) {
            console.log(playerSelection, computerSelection, 'same choice');     
            
@@ -54,29 +48,68 @@ function playRound(playerSelection, computerSelection){
               computercount++            
     }
 
-
+    count++;
 }
 
   
-
-
+const buttons = document.querySelectorAll('button');
+//alert('click your choice');
 function game(){
-  while(j<=5){
+  //count=0;
+  alert('play rock scissor paper');
+  buttons.forEach((button) => {
+
+    // and for each one we add a 'click' listener
+    button.addEventListener('click', () => {
+    playerSelection= button.id;
     computerSelection=computerplay();
-    playerSelection =userinputchecker();  
     console.log(computerSelection);
     console.log(playerSelection);
     playRound(playerSelection, computerSelection);
-    j++;
-  }
+    if (count===5){
+      gamewinner();
+    }
+    });
+  });
+
+}
+
+function gamewinner(){
+ // while(j<=5){
+    
+    //computerSelection=computerplay();
+    //playerSelection =userinputchecker();  
+    //console.log(computerSelection);
+    //console.log(playerSelection);
+    //playRound(playerSelection, computerSelection);
+    //j++;
+  //}
      
 
   if (winnercount>computercount) {
-        console.log('you are the winner, you scored', winnercount/(winnercount+computercount));
+      console.log('you are the winner, you scored', winnercount ,'out of',
+      (winnercount+computercount));
+  }else if(winnercount=computercount){
+            console.log('your score',winnercount,'is equal with computer score',computercount);
   } else {
-    console.log('game over you lost for ', computercount ,'to' ,(winnercount+computercount));
+   console.log('game over you lost for ', computercount ,'to' ,
+   (winnercount+computercount));
   }
+
+  winnercount=0;
+  computercount=0;
+  count=0;
+  x=prompt('do you wana play again? (Y/N)');
+ if(x==='Y'||x==='y'){
+       game();
+  }
+  else{
+    alert('good luck for next time');
+  }
+
+  
 }
+
 
 
 
